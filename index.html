@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#dff4ff" />
+  <title>Sorriso Mágico 3D</title>
+  <meta name="description" content="Protótipo educativo de Odontopediatria: explore uma boca em 3D e remova o biofilme dentário em uma missão cronometrada." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🦷%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <div class="backdrop__title">Sorriso Mágico 3D<small>Protótipo educativo · Odontopediatria</small></div>
+  </div>
+
+  <main class="device" id="app">
+
+    <!-- 1. BOAS-VINDAS -->
+    <section class="screen screen--welcome" id="screen-welcome" aria-label="Boas-vindas">
+      <div class="deco" aria-hidden="true">
+        <i class="bubble b1"></i><i class="bubble b2"></i><i class="bubble b3"></i><i class="bubble b4"></i><i class="bubble b5"></i>
+        <span class="deco__icon d1">🪥</span><span class="deco__icon d2">✨</span><span class="deco__icon d3">🫧</span><span class="deco__icon d4">⭐</span>
+        <svg class="waves" viewBox="0 0 390 120" preserveAspectRatio="none"><path d="M0 50 Q60 10 130 40 T260 40 T390 30 V120 H0Z" fill="#c9f4e1"/><path d="M0 80 Q80 50 160 76 T320 70 T390 66 V120 H0Z" fill="#a9ebd0" opacity=".8"/></svg>
+      </div>
+      <header class="logo">
+        <span class="logo__mark" aria-hidden="true">🦷</span>
+        <span class="logo__text">Sorriso Mágico <b>3D</b></span>
+      </header>
+      <div class="welcome__hero">
+        <div class="welcome__mascot" id="mascot-welcome"></div>
+        <h1>Olá, Guardião do Sorriso!</h1>
+        <p class="lead">Vamos proteger seus dentinhos e derrotar o biofilme?</p>
+      </div>
+      <ol class="steps" aria-label="Etapas da aventura">
+        <li><span class="steps__icon">🔍</span><b>Explorar</b></li>
+        <li class="steps__sep" aria-hidden="true"></li>
+        <li><span class="steps__icon">🪥</span><b>Limpar</b></li>
+        <li class="steps__sep" aria-hidden="true"></li>
+        <li><span class="steps__icon">🏅</span><b>Conquistar</b></li>
+      </ol>
+      <div class="welcome__cta">
+        <button class="btn btn--primary btn--xl" data-go="explore" id="btn-start">Começar minha aventura</button>
+        <p class="fineprint">Protótipo educativo • Peça a um adulto para acompanhar</p>
+      </div>
+    </section>
+
+    <!-- 2. EXPLORAÇÃO 3D -->
+    <section class="screen" id="screen-explore" aria-label="Exploração da boca">
+      <header class="topbar">
+        <button class="btn btn--icon" data-go="welcome" aria-label="Voltar ao início">‹</button>
+        <h2>Explore a boca</h2>
+        <ol class="dots" aria-label="Etapa 1 de 3"><li class="on"></li><li></li><li></li></ol>
+      </header>
+      <div class="stage-slot stage-slot--tall" id="slot-explore">
+        <div class="stage-legend" aria-hidden="true">
+          <span class="chip"><i class="swatch swatch--enamel"></i>Esmalte</span>
+          <span class="chip"><i class="swatch swatch--plaque"></i>Biofilme</span>
+        </div>
+        <div class="stage-note">Modelo 3D demonstrativo gerado por código · arraste para girar</div>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Visualizações">
+          <button class="seg__btn is-on" data-view="front">Frente</button>
+          <button class="seg__btn" data-view="left">Lateral esq.</button>
+          <button class="seg__btn" data-view="right">Lateral dir.</button>
+          <button class="seg__btn" data-view="top">Vista superior</button>
+        </div>
+        <div class="rotpad" role="group" aria-label="Girar a boca">
+          <button class="btn btn--icon" data-rot="-1,0" aria-label="Girar para a esquerda">◀</button>
+          <button class="btn btn--icon" data-rot="0,-1" aria-label="Girar para cima">▲</button>
+          <button class="btn btn--icon" data-rot="0,1" aria-label="Girar para baixo">▼</button>
+          <button class="btn btn--icon" data-rot="1,0" aria-label="Girar para a direita">▶</button>
+          <button class="btn btn--secondary btn--sm" id="btn-reset-view">↺ Redefinir</button>
+        </div>
+      </div>
+      <div class="bubble-tip">
+        <div class="bubble-tip__mascot" id="mascot-explore"></div>
+        <p id="explore-tip" aria-live="polite"></p>
+        <button class="btn btn--ghost btn--sm" id="btn-next-tip">Outra dica</button>
+      </div>
+      <div class="cta">
+        <button class="btn btn--primary btn--lg" data-go="select" id="btn-to-select">Iniciar missão de limpeza</button>
+      </div>
+    </section>
+
+    <!-- 3. SELEÇÃO DE REGIÕES -->
+    <section class="screen" id="screen-select" aria-label="Seleção das regiões dentárias">
+      <header class="topbar">
+        <button class="btn btn--icon" data-go="explore" aria-label="Voltar">‹</button>
+        <h2>Escolha por onde começar</h2>
+        <ol class="dots" aria-label="Etapa 2 de 3"><li class="on"></li><li class="on"></li><li></li></ol>
+      </header>
+      <div class="stage-slot" id="slot-select"></div>
+      <div class="region-cards" role="radiogroup" aria-label="Regiões dos dentes">
+        <button class="region-card is-on" role="radio" aria-checked="true" data-region="front"><span class="region-card__icon">😁</span><b>Dentes da frente</b></button>
+        <button class="region-card" role="radio" aria-checked="false" data-region="left"><span class="region-card__icon">⬅️</span><b>Lado esquerdo</b></button>
+        <button class="region-card" role="radio" aria-checked="false" data-region="right"><span class="region-card__icon">➡️</span><b>Lado direito</b></button>
+      </div>
+      <div class="info-card" id="region-info" aria-live="polite"></div>
+      <div class="info-card info-card--adult">
+        <span aria-hidden="true">👨‍👩‍👧</span>
+        <p><b>Um adulto pode ajudar!</b> Você precisa limpar as <b>3 regiões</b> em <b>2 minutos</b>. Escove por fora, por dentro e em cima dos dentes.</p>
+      </div>
+      <div class="cta">
+        <button class="btn btn--primary btn--lg" id="btn-begin-mission">Começar missão</button>
+      </div>
+    </section>
+
+    <!-- 4. MISSÃO -->
+    <section class="screen" id="screen-mission" aria-label="Missão cronometrada">
+      <header class="hud">
+        <button class="btn btn--icon" id="btn-pause" aria-label="Pausar a missão">❚❚</button>
+        <div class="hud__title"><small>Missão</small><h2>Dentes Limpinhos!</h2></div>
+        <div class="timer" id="timer" role="timer" aria-label="Tempo restante">02:00</div>
+      </header>
+      <div class="meter" aria-label="Progresso da missão">
+        <div class="meter__bar"><i id="meter-fill"></i></div>
+        <span id="meter-text">0%</span>
+      </div>
+      <div class="stage-slot stage-slot--tall" id="slot-mission">
+        <div class="toast" id="toast" aria-live="polite"></div>
+        <div class="rotpad rotpad--float" role="group" aria-label="Girar a boca">
+          <button class="btn btn--icon btn--sm" data-rot="-1,0" aria-label="Girar para a esquerda">◀</button>
+          <button class="btn btn--icon btn--sm" data-rot="0,-1" aria-label="Girar para cima">▲</button>
+          <button class="btn btn--icon btn--sm" data-rot="0,1" aria-label="Girar para baixo">▼</button>
+          <button class="btn btn--icon btn--sm" data-rot="1,0" aria-label="Girar para a direita">▶</button>
+        </div>
+        <div class="fx" id="fx" aria-hidden="true"></div>
+        <div class="brush" id="brush" aria-hidden="true"></div>
+        <div class="countdown" id="countdown" aria-live="assertive"></div>
+        <div class="overlay" id="pause-overlay" hidden>
+          <div class="overlay__card">
+            <h3>Missão pausada</h3>
+            <p>O tempo está parado. Respire e volte quando quiser!</p>
+            <button class="btn btn--primary btn--lg" id="btn-resume">▶ Retomar</button>
+            <button class="btn btn--ghost" id="btn-quit">Sair da missão</button>
+          </div>
+        </div>
+      </div>
+      <div class="bubble-tip bubble-tip--compact">
+        <span aria-hidden="true">💡</span>
+        <p id="mission-tip" aria-live="polite"></p>
+      </div>
+      <nav class="tabs" aria-label="Regiões da missão">
+        <button class="tab" data-region="front"><span class="tab__ring" style="--p:0"><i>😁</i></span><b>Frente</b><small>0%</small></button>
+        <button class="tab" data-region="left"><span class="tab__ring" style="--p:0"><i>⬅️</i></span><b>Esquerdo</b><small>0%</small></button>
+        <button class="tab" data-region="right"><span class="tab__ring" style="--p:0"><i>➡️</i></span><b>Direito</b><small>0%</small></button>
+      </nav>
+      <p class="regions-done" id="regions-done">Regiões concluídas: <b>0 de 3</b></p>
+    </section>
+
+    <!-- 5. SUCESSO -->
+    <section class="screen screen--success" id="screen-success" aria-label="Missão concluída">
+      <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+      <div class="success__body">
+        <div class="success__mascot" id="mascot-success"></div>
+        <h1>Parabéns, Guardião do Sorriso!</h1>
+        <p class="lead">Você completou sua missão e aprendeu a cuidar melhor dos seus dentes!</p>
+        <div class="medal-card">
+          <div class="medal medal--sm" id="medal-small"></div>
+          <div>
+            <b>Medalha Sorriso de Ouro</b>
+            <div class="stars" id="stars" aria-label="Estrelas conquistadas"></div>
+            <small id="success-stats"></small>
+          </div>
+        </div>
+      </div>
+      <div class="cta cta--stack">
+        <button class="btn btn--secondary" data-go="medal">Ver minha medalha</button>
+        <div class="row">
+          <button class="btn btn--primary" id="btn-again-success">Jogar novamente</button>
+          <button class="btn btn--ghost" data-go="welcome">Voltar ao início</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. MEDALHA -->
+    <section class="screen screen--medal" id="screen-medal" aria-label="Medalha digital">
+      <header class="topbar">
+        <button class="btn btn--icon" data-go="success" aria-label="Voltar">‹</button>
+        <h2>Minha conquista</h2>
+        <span></span>
+      </header>
+      <div class="medal-stage">
+        <div class="medal medal--lg" id="medal-large"></div>
+        <h1>Medalha Sorriso de Ouro</h1>
+        <p class="lead">Entregue ao Guardião que limpou todas as regiões dentro do tempo!</p>
+        <ul class="facts">
+          <li><b id="medal-count">1</b><span>medalhas neste aparelho</span></li>
+          <li><b id="medal-time">--</b><span>tempo da missão</span></li>
+          <li><b>3/3</b><span>regiões limpas</span></li>
+        </ul>
+        <p class="fineprint">Lembre: escovar todos os dias, com a ajuda de um adulto, mantém o sorriso saudável. 🦷</p>
+      </div>
+      <div class="cta cta--stack">
+        <button class="btn btn--primary btn--lg" id="btn-again-medal">Jogar novamente</button>
+        <button class="btn btn--ghost" data-go="welcome">Voltar ao início</button>
+      </div>
+    </section>
+
+    <!-- 7. TENTAR NOVAMENTE -->
+    <section class="screen screen--retry" id="screen-retry" aria-label="Tentar novamente">
+      <div class="success__body">
+        <div class="success__mascot" id="mascot-retry"></div>
+        <h1>Quase lá, Guardião!</h1>
+        <p class="lead">O tempo acabou, mas você foi muito bem! Escovar direitinho leva tempo e a gente sempre pode tentar de novo.</p>
+        <div class="info-card" id="retry-progress"></div>
+        <div class="info-card info-card--adult">
+          <span aria-hidden="true">👨‍👩‍👧</span>
+          <p>Dica: peça a um adulto para escovar junto com você. Em equipe fica mais fácil!</p>
+        </div>
+      </div>
+      <div class="cta cta--stack">
+        <button class="btn btn--primary btn--lg" id="btn-again-retry">Tentar novamente</button>
+        <button class="btn btn--ghost" data-go="welcome">Voltar ao início</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+  <noscript><p style="padding:2rem;font-family:sans-serif">Ative o JavaScript para usar o Sorriso Mágico 3D.</p></noscript>
+</body>
+</html>
